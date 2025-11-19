@@ -1,0 +1,58 @@
+/* PDF Viewer Styles - Force inline flow without scrollable containers */
+
+.pdf-viewer-container {
+  background: transparent;
+}
+
+/* Remove all container heights and scrolling - make it flow naturally */
+.rpv-core__viewer {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+}
+
+.rpv-core__viewer-inner {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+.rpv-core__pages-container {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+.rpv-core__inner-pages {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Style individual PDF pages to stack vertically like webpage content */
+.rpv-core__page-layer {
+  margin-bottom: 30px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: visible !important;
+}
+
+.rpv-core__inner-page {
+  margin-bottom: 30px !important;
+  overflow: visible !important;
+}
+
+/* Hide scrollbars and toolbars that create containers */
+.rpv-scroll-mode__toolbar,
+.rpv-toolbar,
+.rpv-core__toolbar {
+  display: none !important;
+}
+
+/* Make sure canvas elements render at full size */
+.pdf-viewer-container canvas {
+  display: block !important;
+  margin: 0 auto 30px auto !important;
+}
+
+/* Ensure no hidden overflow on any parent containers */
+.pdf-viewer-container * {
+  overflow: visible !important;
+}

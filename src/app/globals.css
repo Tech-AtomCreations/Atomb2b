@@ -1,0 +1,516 @@
+/* DM Sans for brand headings */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap');
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+.glass-card {
+  width: 50%;
+  max-width: 780px;
+  height: 48px;
+
+  /* Glassmorphism: match overlay cards (backdrop blur + translucent white) */
+  background: rgba(255, 255, 255, 0.20); /* bg-white/20 */
+  backdrop-filter: blur(12px); /* similar to backdrop-blur-xl */
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  isolation: isolate; /* ensure proper backdrop stacking */
+
+  /* Frosted border + softer shadow */
+  border: 1px solid rgba(255, 255, 255, 0.30); /* border-white/30 */
+  border-radius: 9999px; /* pill-shaped */
+  padding-left: 12px;
+  padding-right: 12px;
+  box-shadow: 0 20px 40px rgba(2, 6, 23, 0.12); /* similar to shadow-2xl */
+
+  /* Layout */
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+}
+
+
+
+/* Responsive: wider pill on small screens */
+@media (max-width: 768px) {
+  .glass-card {
+    width: 92%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 18px;
+    top: 12px;
+  }
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+.glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+/* Provide a subtle gradient behind the fixed header so backdrop-filter has content to blur
+   This makes the header's frosted effect visible even when the page background is white. */
+
+/* Slightly stronger blur on the header for a closer match to overlay cards */
+
+
+/* Layout helpers for the centered nav inside the pill */
+.glass-card .container {
+  max-width: 100%;
+  padding-left: 38px;
+  padding-right: 38px;
+}
+.custom-card {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  -webkit-mask: 
+    radial-gradient(circle 50px at bottom right, transparent 95%, black 100%);
+  mask: 
+    radial-gradient(circle 50px at bottom right, transparent 95%, black 100%);
+}
+
+/*
+  Utility: cut-right-rounded
+  Adds a circular "bite" (transparent mask) at the right-bottom corner of an element
+  Usage: wrap your <Image/> or <img> with a container having className="cut-right-rounded",
+         or add the class directly to an element that contains the image.
+
+  We provide responsive radii for the requested mobile breakpoints: 475px, 375px, 320px.
+*/
+
+.cut-right-rounded,
+.cut-right-rounded > span {
+  position: relative;
+  overflow: hidden;
+  /* create a circular transparent area at the bottom-right corner */
+  -webkit-mask: radial-gradient(circle at 100% 100%, transparent 0 48px, black 49px);
+  mask: radial-gradient(circle at 100% 100%, transparent 0 48px, black 49px);
+  background-color: transparent !important;
+}
+
+/* Next.js <Image/> renders a wrapper <span> — ensure it fills the container and is transparent */
+.cut-right-rounded > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: transparent !important;
+}
+
+/* Ensure images fill the container and respect the mask (covers most DOM shapes) */
+.cut-right-rounded img,
+.cut-right-rounded > img,
+.cut-right-rounded picture,
+.cut-right-rounded > span > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: transparent !important;
+}
+
+/* Stronger fallback: if masks are not applied correctly, use a clip-path to remove a square-ish corner.
+   This is less 'round' than the mask but reliably hides artifacts in older browsers/next/image wrappers.
+*/
+.cut-right-rounded {
+  /* approximate a circular bite using a 5-point polygon fallback */
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% calc(100% - 48px),
+    calc(100% - 48px) 100%,
+    0% 100%
+  );
+}
+
+/* Aggressively ensure any nested wrappers don't show white backgrounds */
+.cut-right-rounded,
+.cut-right-rounded * {
+  background-color: transparent !important;
+  color: inherit;
+}
+
+/* Breakpoint adjustments */
+@media (max-width: 475px) {
+  .cut-right-rounded {
+    -webkit-mask: radial-gradient(circle at 100% 100%, transparent 0 40px, black 41px);
+    mask: radial-gradient(circle at 100% 100%, transparent 0 40px, black 41px);
+    /* Update clip-path for smaller mobile screens */
+    clip-path: polygon(
+      0% 0%,
+      100% 0%,
+      100% calc(100% - 40px),
+      calc(100% - 40px) 100%,
+      0% 100%
+    );
+  }
+}
+
+@media (max-width: 375px) {
+  .cut-right-rounded {
+    -webkit-mask: radial-gradient(circle at 100% 100%, transparent 0 34px, black 35px);
+    mask: radial-gradient(circle at 100% 100%, transparent 0 34px, black 35px);
+    /* Update clip-path for very small screens */
+    clip-path: polygon(
+      0% 0%,
+      100% 0%,
+      100% calc(100% - 34px),
+      calc(100% - 34px) 100%,
+      0% 100%
+    );
+  }
+}
+
+/* Small-screen header adjustments (exactly 375px and below) */
+@media (max-width: 375px) {
+  /* hide secondary/chat button so only single logo remains */
+  .chat-btn { display: none !important; }
+
+  /* ensure header inner row uses space-between so logo left, hamburger right */
+  .header-inner { justify-content: space-between; }
+
+  /* add extra padding between left logo and center area */
+  .header-inner .flex-shrink-0 { margin-right: 12px; }
+
+  /* make the pill a little taller for mobile touch targets */
+  /* Nudge the centered pill slightly to the left to better align with page content at 375px */
+  .glass-card {
+    height: 56px;
+    /* move further left and reduce width to decrease right-side overflow */
+    left: 50%;
+    transform: translateX(calc(-50% - 28px));
+    max-width: 78%;
+  }
+}
+
+/* Mobile sidebar component (animated, slides in from right) */
+.mobile-sidebar {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none; /* when closed allow clicks through */
+}
+
+.mobile-sidebar__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2,6,23,0.45);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.mobile-sidebar.open .mobile-sidebar__backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-sidebar__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: min(86%, 340px);
+  background: #fff;
+  box-shadow: -12px 0 40px rgba(2,6,23,0.12);
+  transform: translateX(100%);
+  transition: transform 260ms cubic-bezier(.22,.9,.32,1);
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.mobile-sidebar.open .mobile-sidebar__panel {
+  transform: translateX(0%);
+}
+
+.mobile-sidebar__panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-sidebar__panel .nav-link {
+  padding: 12px 14px;
+  color: #16203a;
+  border-radius: 10px;
+}
+
+.mobile-sidebar__panel .nav-active {
+  padding: 12px 14px;
+  background: #000;
+  color: #fff;
+  border-radius: 10px;
+}
+
+/* Tweak specifically for smaller narrow screens (≈374px) to reduce panel width */
+@media (max-width: 374px) {
+  .mobile-sidebar__panel { width: min(92%, 300px); }
+}
+
+@media (max-width: 320px) {
+  .cut-right-rounded {
+    -webkit-mask: radial-gradient(circle at 100% 100%, transparent 0 28px, black 29px);
+    mask: radial-gradient(circle at 100% 100%, transparent 0 28px, black 29px);
+    /* Update clip-path for smallest screens */
+    clip-path: polygon(
+      0% 0%,
+      100% 0%,
+      100% calc(100% - 28px),
+      calc(100% - 28px) 100%,
+      0% 100%
+    );
+  }
+}
+
+
+
+
+.nav-links {
+  /* hide by default on small screens so the mobile hamburger controls visibility */
+  display: none;
+  gap: 12px;
+  align-items: center;
+  margin-left: 12px;
+  flex-wrap: nowrap; /* keep nav items on one line */
+}
+
+/* Show nav-links at md and above (matches Tailwind's md breakpoint) */
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+  }
+}
+
+.nav-links .nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(10,23,54,0.85);
+  font-size: 14px;
+  font-weight: normal;
+  padding: 6px 8px;
+  border-radius: 12px;
+  transition: color .12s ease, transform .12s ease, background .12s ease;
+  background: transparent;
+  white-space: nowrap; /* prevent label wrapping like "Contact Us" */
+  box-sizing: border-box;
+}
+
+.nav-links .nav-link:hover {
+  color: #163172;
+  background: rgba(22,49,114,0.06);
+}
+
+/* Active/selected nav item (rounded blue pill) */
+.nav-links .nav-active {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000; /* black */
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 6px 8px;
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(22,49,114,0.18);
+  z-index: 20; /* stay above subtle hover backgrounds */
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+/* Chat / action round button on the right (overlapping edge) */
+.chat-btn {
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  color: #fff;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .glass-card {
+    width: 92%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 18px;
+    top: 12px;
+  }
+  .nav-links {
+    gap: 14px;
+  }
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.13 0.028 261.692);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.13 0.028 261.692);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.13 0.028 261.692);
+  --primary: oklch(0.21 0.034 264.665);
+  --primary-foreground: oklch(0.985 0.002 247.839);
+  --secondary: oklch(0.967 0.003 264.542);
+  --secondary-foreground: oklch(0.21 0.034 264.665);
+  --muted: oklch(0.967 0.003 264.542);
+  --muted-foreground: oklch(0.551 0.027 264.364);
+  --accent: oklch(0.967 0.003 264.542);
+  --accent-foreground: oklch(0.21 0.034 264.665);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.928 0.006 264.531);
+  --input: oklch(0.928 0.006 264.531);
+  --ring: oklch(0.707 0.022 261.325);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0.002 247.839);
+  --sidebar-foreground: oklch(0.13 0.028 261.692);
+  --sidebar-primary: oklch(0.21 0.034 264.665);
+  --sidebar-primary-foreground: oklch(0.985 0.002 247.839);
+  --sidebar-accent: oklch(0.967 0.003 264.542);
+  --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
+  --sidebar-border: oklch(0.928 0.006 264.531);
+  --sidebar-ring: oklch(0.707 0.022 261.325);
+}
+
+.dark {
+  --background: oklch(0.13 0.028 261.692);
+  --foreground: oklch(0.985 0.002 247.839);
+  --card: oklch(0.21 0.034 264.665);
+  --card-foreground: oklch(0.985 0.002 247.839);
+  --popover: oklch(0.21 0.034 264.665);
+  --popover-foreground: oklch(0.985 0.002 247.839);
+  --primary: oklch(0.928 0.006 264.531);
+  --primary-foreground: oklch(0.21 0.034 264.665);
+  --secondary: oklch(0.278 0.033 256.848);
+  --secondary-foreground: oklch(0.985 0.002 247.839);
+  --muted: oklch(0.278 0.033 256.848);
+  --muted-foreground: oklch(0.707 0.022 261.325);
+  --accent: oklch(0.278 0.033 256.848);
+  --accent-foreground: oklch(0.985 0.002 247.839);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.21 0.034 264.665);
+  --sidebar-foreground: oklch(0.985 0.002 247.839);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0.002 247.839);
+  --sidebar-accent: oklch(0.278 0.033 256.848);
+  --sidebar-accent-foreground: oklch(0.985 0.002 247.839);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+/* Brand accent utility (used by Hero headline) */
+.brand-accent {
+  color: #163172;
+  font-size: s-4; /* user requested brand */
+  font-family: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  html {
+    overflow-x: hidden; /* Prevent horizontal scrolling at root level */
+  }
+}
+
+@media (max-width: 700px) {
+  .glass-card {
+    width: 92% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    top: 10px !important;
+    max-width: 92% !important;
+  }
+}

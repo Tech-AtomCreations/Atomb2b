@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://atomcreations.com/sitemap.xml
+
+# Crawl-delay for all bots
+Crawl-delay: 1

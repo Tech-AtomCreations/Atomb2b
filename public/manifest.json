@@ -1,0 +1,30 @@
+{
+  "name": "Atom Creations - Custom Apparel Manufacturing",
+  "short_name": "Atom Creations",
+  "description": "Leading manufacturer of custom apparel and garments with low minimum order quantities",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1f2937",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["manufacturing", "business", "apparel"],
+  "screenshots": [
+    {
+      "src": "/logo 1.svg",
+      "sizes": "1280x720",
+      "type": "image/svg+xml",
+      "platform": "wide"
+    }
+  ]
+}
