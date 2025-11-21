@@ -81,7 +81,7 @@ export default function Header() {
             <Link href="/catalogue" className={isActive('/catalogue') ? 'nav-active' : 'nav-link'}>Catalogue</Link>
             <Link href="/blog" className={isActive('/blog') ? 'nav-active' : 'nav-link'}>Blogs</Link>
             <Link href="/contact" className={isActive('/contact') ? 'nav-active' : 'nav-link'}>Contact Us</Link>
-            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" className="nav-link mr-6">Shop Now</a>
+            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" className="nav-link mr-3">Shop Now</a>
           </nav>
 
           {/* Right side: chat button and mobile menu */}

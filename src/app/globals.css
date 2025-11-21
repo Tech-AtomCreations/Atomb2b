@@ -492,6 +492,15 @@
   font-family: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
 
+/* Text shadow utilities for better readability on images */
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.drop-shadow-lg {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

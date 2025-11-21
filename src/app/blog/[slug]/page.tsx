@@ -365,10 +365,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           alt={post.title}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white px-4 max-[425px]:px-3 max-[375px]:px-2 max-w-4xl">
-            <h1 className="text-2xl max-[769px]:text-xl max-[425px]:text-lg max-[375px]:text-base md:text-4xl lg:text-6xl font-bold mb-4 max-[425px]:mb-2 leading-tight">
+          <div className="text-center text-white drop-shadow-lg px-4 max-[425px]:px-3 max-[375px]:px-2 max-w-4xl">
+            <h1 className="text-2xl max-[769px]:text-xl max-[425px]:text-lg max-[375px]:text-base md:text-4xl lg:text-6xl font-bold mb-4 max-[425px]:mb-2 leading-tight text-shadow-lg">
               {post.title}
             </h1>
           </div>
